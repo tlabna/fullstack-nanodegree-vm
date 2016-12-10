@@ -36,4 +36,8 @@ CREATE VIEW player_standings AS
     FROM players
     LEFT JOIN matches ON (players.id = matches.winner OR players.id = matches.loser)
     GROUP BY players.id
-    ORDER BY wins DESC, total_matches
+    ORDER BY wins DESC, total_matches;
+
+-- Create a view for initial round of pairing random players
+CREATE VIEW first_round AS
+    SELECT * FROM players ORDER BY random();

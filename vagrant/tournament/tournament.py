@@ -43,6 +43,18 @@ def countPlayers():
 
     return player_count
 
+def countMatches():
+    """Returns the number of matches currently played"""
+
+    db = connect()
+    c = db.cursor()
+    c.execute("SELECT count(*) as matches_played from matches")
+    db.commit()
+    match_count = c.fetchall()[0][0]
+    db.close()
+
+    return match_count
+
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -116,4 +128,27 @@ def swissPairings():
         name2: the second player's name
     """
 
+    db = connect()
+    c = db.cursor()
+    c.execute("SELECT * FROM first_round")
+    db.commit()
 
+    first_round = c.fetchall()
+    num_players = countPlayers()
+    match_count = countMatches()
+    standings = playerStandings()
+    pairings = []
+
+    if match_count == 0:
+        # Pair players randomly for first round
+        for x in range(0, num_players-1, 2):
+            # Inserting into pairings the tuples with players.id1, players.name1, players.id2, players.name2
+            pairings.append((first_round[x][0], first_round[x][1], first_round[x+1][0], first_round[x+1][1]))
+    else:
+        for x in range(0, num_players-1, 2):
+            # Inserting into pairings the tuples with players.id1, players.name1, players.id2, players.name2
+            pairings.append((standings[x][0], standings[x][1], standings[x+1][0], standings[x+1][1]))
+
+    db.close()
+
+    return pairings

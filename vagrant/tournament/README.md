@@ -16,7 +16,5 @@
 4. Once virtual machine has been loaded log on by typing `vagrant ssh`
 5. Once logged in, go to the `/vagrant/tournament` folder
 6. Run psql by typing `psql`
-7. Run the following sql command to create the tournament database.
-    `\i tournament.sql`
-8. Run the tournament_test python file. **(Make sure to do this in another terminal window/tab)**
-    python tournament_test.py
+7. Run the following sql command to create the tournament database. `\i tournament.sql`
+8. Run the tournament_test python file. **(Make sure to do this in another terminal window/tab)** `python tournament_test.py`

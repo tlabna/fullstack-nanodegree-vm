@@ -43,6 +43,7 @@ def countPlayers():
 
     return player_count
 
+
 def countMatches():
     """Returns the number of matches currently played"""
 
@@ -107,7 +108,8 @@ def reportMatch(winner, loser):
 
     db = connect()
     c = db.cursor()
-    c.execute("INSERT INTO matches (winner, loser) VALUES (%s, %s)", (winner, loser))
+    c.execute("INSERT INTO matches (winner, loser) VALUES (%s, %s)",
+              (winner, loser))
     db.commit()
     db.close()
 
@@ -141,13 +143,17 @@ def swissPairings():
 
     if match_count == 0:
         # Pair players randomly for first round
-        for x in range(0, num_players-1, 2):
-            # Inserting into pairings the tuples with players.id1, players.name1, players.id2, players.name2
-            pairings.append((first_round[x][0], first_round[x][1], first_round[x+1][0], first_round[x+1][1]))
+        for x in range(0, num_players - 1, 2):
+            # Inserting into pairings the tuples with players.id1,
+            # players.name1, players.id2, players.name2
+            pairings.append((first_round[x][0], first_round[x][
+                            1], first_round[x + 1][0], first_round[x + 1][1]))
     else:
-        for x in range(0, num_players-1, 2):
-            # Inserting into pairings the tuples with players.id1, players.name1, players.id2, players.name2
-            pairings.append((standings[x][0], standings[x][1], standings[x+1][0], standings[x+1][1]))
+        for x in range(0, num_players - 1, 2):
+            # Inserting into pairings the tuples with players.id1,
+            # players.name1, players.id2, players.name2
+            pairings.append((standings[x][0], standings[x][1], standings[
+                            x + 1][0], standings[x + 1][1]))
 
     db.close()
 
